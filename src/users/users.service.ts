@@ -8,10 +8,10 @@ import { UsersRepository } from './repositories/users.repository';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(User)
-  private readonly userRepository: UsersRepository) { }
+  constructor(private readonly userRepository: UsersRepository) { }
+
   async create(createUserDto: CreateUserDto) {
-    const newUser = await this.userRepository.createUser(CreateUserDto);
+    const newUser = await this.userRepository.createUser(createUserDto);
 
     return {data: newUser, status: 201};
   }
