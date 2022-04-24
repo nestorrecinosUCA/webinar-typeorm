@@ -4,12 +4,17 @@ export class User {
   @ObjectIdColumn()
   id: ObjectID;
 
-  @Column()
+  @Column({ nullable: false})
   name: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: false })
   email: string;
 
+  @Column({ nullable: false})
+  age: number;
+
+  @Column({ nullable: true })
+  phone: string;
   @CreateDateColumn()
   createdAt: Date;
 }
