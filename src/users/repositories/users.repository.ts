@@ -8,5 +8,12 @@ export class UsersRepository extends MongoRepository<User> {
     const newUser = this.create(createUserDto);
     const userSaved = await this.save(newUser);
     return userSaved;
-  } 
+  }
+
+  public async findOneByEmail(email: string): Promise<User> {
+    const user = await this.findOne({
+      where: { email }
+    });
+    return user;
+  }
 }

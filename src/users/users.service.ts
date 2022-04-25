@@ -13,15 +13,16 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     const newUser = await this.userRepository.createUser(createUserDto);
 
-    return {data: newUser, status: 201};
+    return { data: newUser, status: 201 };
   }
 
   findAll() {
     return `This action returns all users`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(email: string) {
+    const user = await this.userRepository.findOneByEmail(email);
+    return user;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
