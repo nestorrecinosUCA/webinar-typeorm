@@ -16,8 +16,8 @@ export class UsersService {
     return { data: newUser, status: 201 };
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll() {
+    return this.userRepository.find();
   }
 
   async findOne(email: string) {
