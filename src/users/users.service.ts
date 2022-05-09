@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MongoRepository, Repository } from 'typeorm';
+import { MongoRepository, ObjectID, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from '../entities/user.entity';
@@ -25,8 +25,9 @@ export class UsersService {
     return user;
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: ObjectID, updateUserDto: UpdateUserDto) {
+    const updatedUser = await this.userRepository.updatePartialUser(id, updateUserDto);
+    return updatedUser;
   }
 
   async remove(id: string) {
