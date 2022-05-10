@@ -26,7 +26,7 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
-  @Get()  
+  @Get()
   @ApiResponse({ status: 200, type: [User] })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   findAll() {
