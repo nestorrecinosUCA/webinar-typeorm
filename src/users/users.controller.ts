@@ -11,7 +11,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ObjectID } from 'typeorm';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiConsumes, ApiResponse } from '@nestjs/swagger';
 import { User } from 'src/entities/user.entity';
 
 @Controller('users')
@@ -19,13 +19,14 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('')
+  @ApiConsumes('multipart/form-data', 'application/json') // La manera en que se puede enviar la info en el endpoint
   @ApiResponse({ status: 201, type: User })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
-  @Get()
+  @Get()  
   @ApiResponse({ status: 200, type: [User] })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   findAll() {
@@ -40,6 +41,7 @@ export class UsersController {
   }
 
   @Patch(':id')
+  @ApiConsumes('multipart/form-data', 'application/json')
   @ApiResponse({ status: 200, type: User })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 404, description: 'Not found' })
